@@ -1,0 +1,141 @@
+services:
+  account-service:
+    build: ./account-service
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./account-service/app:/app/app
+      - ./account-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./account-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+
+  board-service:
+    build: ./board-service
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./board-service/app:/app/app
+      - ./board-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./board-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+
+  chatbot-service:
+    build: ./chatbot-service
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./chatbot-service/app:/app/app
+      - ./chatbot-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./chatbot-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+
+  covenant-service:
+    build: ./covenant-service
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./covenant-service/app:/app/app
+      - ./covenant-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./covenant-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - app-network
+
+  economy-service:
+    build: ./economy-service
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./economy-service/app:/app/app
+      - ./economy-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./economy-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    networks:
+      - app-network
+
+  item-service:
+    build: ./item-service
+    ports:
+      - "8006:8006"
+    volumes:
+      - ./item-service/app:/app/app
+      - ./item-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./item-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    networks:
+      - app-network
+
+  organization-service:
+    build: ./organization-service
+    ports:
+      - "8007:8007"
+    volumes:
+      - ./organization-service/app:/app/app
+      - ./organization-service/requirements.txt:/app/requirements.txt
+    env_file:
+      - ./organization-service/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    networks:
+      - app-network
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./gateway:/app
+    env_file:
+      - ./gateway/.env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    depends_on:
+      - account-service
+      - board-service
+      - chatbot-service
+      - covenant-service
+      - economy-service
+      - item-service
+      - organization-service
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NEXT_PUBLIC_API_URL=http://gateway:8080/api/v1
+    depends_on:
+      - gateway
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

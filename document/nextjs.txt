@@ -1,0 +1,26 @@
+현재 Gateway 설정을 분석해서 .env.local에 맞는 올바른 URL을 제안해드리겠습니다.
+🔍 현재 Gateway 설정 분석:
+포트: 8090 (docker-compose.yml에서 8090:8080로 매핑)
+API 경로: /api/v1 (방금 수정한 prefix)
+로컬 개발환경: localhost:8090
+📝 .env.local에 붙여넣을 내용:
+로컬 개발환경용:
+Apply to .env.local
+Run
+http://localhost:8090/api/v1
+프로덕션 환경용 (실제 도메인이 있을 때):
+Apply to .env.local
+Run
+v1
+🧪 테스트 URL들:
+수정 후 다음 URL들이 작동해야 합니다:
+Swagger UI: http://localhost:8090/docs
+헬스체크: http://localhost:8090/api/v1/health
+Account 서비스: http://localhost:8090/api/v1/account/user/
+기타 서비스들: http://localhost:8090/api/v1/{service}/{path}
+💡 권장사항:
+로컬 개발용으로는 이것을 사용하세요:
+Apply to .env.local
+Run
+v1
+이렇게 설정하면 Next.js 앱에서 ${process.env.NEXT_PUBLIC_API_URL}/account/user/ 같은 형태로 API를 호출할 수 있습니다.

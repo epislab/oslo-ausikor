@@ -13,4 +13,5 @@ next-env.d.ts
 *.pem
 /coverage
 /out
-/build 
+/build
+*.local 

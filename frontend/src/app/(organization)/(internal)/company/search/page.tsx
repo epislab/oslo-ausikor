@@ -53,14 +53,14 @@ export default function CompanySearch() {
                         </form>
 
                         {/* 검색 결과 */}
-                        <div className="mt-12 text-center">
+                        <div className="mt-12 text-center" style={{ marginTop: '50px' }}>
                             <h2 className="h2__companyName text-xl font-semibold text-gray-700">
                                 {companyName ? `Results for: ${companyName}` : "No results yet"}
                             </h2>
                         </div>
-                        <div>
-                            <Link href="/company/search">
-                                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                        <div className="mt-6 text-center">
+                            <Link href="/agreement/register">
+                                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition" >
                                     Target Company
                                 </button>
                             </Link>
@@ -99,8 +99,8 @@ export default function CompanySearch() {
                             {companyName ? `Results for: ${companyName}` : "No results yet"}
                         </h2>
                     </div> */}
-                    <div>
-                        <Link href="/company/search">
+                    <div className="mt-6 text-center">
+                        <Link href="/agreement/register">
                             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                                 Target Company
                             </button>

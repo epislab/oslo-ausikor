@@ -13,15 +13,15 @@ services:
     networks:
       - app-network
 
-  board-service:
-    build: ./board-service
+  post-service:
+    build: ./post-service
     ports:
       - "8002:8002"
     volumes:
-      - ./board-service/app:/app/app
-      - ./board-service/requirements.txt:/app/requirements.txt
+      - ./post-service/app:/app/app
+      - ./post-service/requirements.txt:/app/requirements.txt
     env_file:
-      - ./board-service/.env
+      - ./post-service/.env
     environment:
       - PYTHONUNBUFFERED=1
     networks:
@@ -41,44 +41,44 @@ services:
     networks:
       - app-network
 
-  covenant-service:
-    build: ./covenant-service
+  contract-service:
+    build: ./contract-service
     ports:
       - "8004:8004"
     volumes:
-      - ./covenant-service/app:/app/app
-      - ./covenant-service/requirements.txt:/app/requirements.txt
+      - ./contract-service/app:/app/app
+      - ./contract-service/requirements.txt:/app/requirements.txt
     env_file:
-      - ./covenant-service/.env
+      - ./contract-service/.env
     environment:
       - PYTHONUNBUFFERED=1
     networks:
       - app-network
 
-  economy-service:
-    build: ./economy-service
+  finance-service:
+    build: ./finance-service
     ports:
       - "8005:8005"
     volumes:
-      - ./economy-service/app:/app/app
-      - ./economy-service/requirements.txt:/app/requirements.txt
+      - ./finance-service/app:/app/app
+      - ./finance-service/requirements.txt:/app/requirements.txt
     env_file:
-      - ./economy-service/.env
+      - ./finance-service/.env
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
     networks:
       - app-network
 
-  item-service:
-    build: ./item-service
+  product-service:
+    build: ./product-service
     ports:
       - "8006:8006"
     volumes:
-      - ./item-service/app:/app/app
-      - ./item-service/requirements.txt:/app/requirements.txt
+      - ./product-service/app:/app/app
+      - ./product-service/requirements.txt:/app/requirements.txt
     env_file:
-      - ./item-service/.env
+      - ./product-service/.env
     environment:
       - PYTHONUNBUFFERED=1
     restart: always
@@ -113,11 +113,11 @@ services:
     restart: always
     depends_on:
       - account-service
-      - board-service
+      - post-service
       - chatbot-service
-      - covenant-service
-      - economy-service
-      - item-service
+      - contract-service
+      - finance-service
+      - product-service
       - organization-service
     networks:
       - app-network
